@@ -1,0 +1,136 @@
+/* Existing styles.css adjustments */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Abel', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box {
+    background-color: #000;
+    color: #fff;
+    border: 4px solid #fff;
+    padding: 0px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+    z-index: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    flex: auto;
+}
+
+.text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    align-items: center;
+    text-align: center;
+}
+
+.image {
+    padding: 10px;
+    position: relative;
+    border-radius: 10%;
+    overflow: hidden; /* Ensures no overflow of the content */
+}
+
+.image img {
+    max-width: 230px;
+    height: auto;
+    display: block;
+    border-radius: 10%;
+}
+
+.image::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border-radius: 10%;
+    background: linear-gradient(45deg,#ff00c8, #002bff,#00ffd5, #7a00ff);
+    background-size: 400%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.image:hover::before {
+    opacity: 1;
+    animation: animate 20s linear infinite;
+}
+
+@keyframes animate {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.text-content {
+    padding: 10px;
+    text-align: center;
+}
+
+.contact-info p, .irl-interests p, .footer-text {
+    margin-bottom: 2px;
+}
+.preferences{
+    margin-bottom: 2px;
+    text-align:center;
+}
+
+.subtitle {
+    margin-bottom: 0;
+}
+
+.footer-text {
+    font-size: .85em;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+}
+
+.user-info, .contact-info, .divider {
+    width: 100%;
+}
+
+hr {
+    width: 80%;
+}
+
+a:link, a:visited, a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
