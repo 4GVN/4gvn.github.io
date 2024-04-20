@@ -1,4 +1,3 @@
-/* Existing styles.css adjustments */
 body, html {
     height: 100%;
     margin: 0;
@@ -53,7 +52,7 @@ body, html {
     padding: 10px;
     position: relative;
     border-radius: 10%;
-    overflow: hidden; /* Ensures no overflow of the content */
+    overflow: hidden;
 }
 
 .image img {
@@ -97,14 +96,17 @@ body, html {
     text-align: center;
 }
 
-.contact-info p, .irl-interests p, .footer-text {
+.social p, .uachv p, .footer-text {
     margin-bottom: 2px;
 }
-.preferences{
+.achv{
     margin-bottom: 2px;
     text-align:center;
 }
-
+.uachv{
+    margin-top: 2px;
+    font-size: 70%;
+}
 .subtitle {
     margin-bottom: 0;
 }
@@ -116,10 +118,12 @@ body, html {
     text-align: center;
 }
 
-.user-info, .contact-info, .divider {
+.info, .social, .divider{
     width: 100%;
 }
-
+.personal{
+    width: 100%;
+}
 hr {
     width: 80%;
 }
