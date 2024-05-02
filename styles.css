@@ -56,7 +56,7 @@ body, html {
 }
 
 .image img {
-    max-width: 230px;
+    max-width: 220px;
     height: auto;
     display: block;
     border-radius: 10%;
@@ -156,3 +156,5 @@ h1 {
     #disc{
         cursor: pointer;
     }
+
+    
