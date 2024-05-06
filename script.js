@@ -29,7 +29,7 @@ class TypeWriter {
     this.words = words;
     this.txt = '';
     this.wordIndex = 0;
-    this.wait = parseInt(wait, 10);
+    this.wait = parseInt(wait, 11);
     this.type();
     this.isDeleting = false;
   }
@@ -42,7 +42,7 @@ class TypeWriter {
       this.txt = fullTxt.substring(0, this.txt.length + 1);
     }
     this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
-    let typeSpeed = 300;
+    let typeSpeed = 270;
     if(this.isDeleting) {
       typeSpeed /= 2;
     }
