@@ -1,73 +1,66 @@
-document.getElementById("disc").addEventListener("click", function(event) {
-    navigator.clipboard.writeText(this.innerText).then(function() {
-        console.log('Copying to clipboard was successful!');
-        const tooltip = document.getElementById("tooltip");
+document.getElementById("disc").addEventListener("click", function (event) {
+  navigator.clipboard.writeText(this.innerText).then(
+    function () {
+      console.log("Copying to clipboard was successful!");
+      const tooltip = document.getElementById("tooltip");
 
-        tooltip.style.left = event.pageX + 15 + 'px'; 
-        tooltip.style.top = event.pageY + 'px'; 
+      tooltip.style.left = event.pageX + 15 + "px";
+      tooltip.style.top = event.pageY + "px";
 
-        tooltip.style.display = 'block';
-        tooltip.style.opacity = 1; 
- 
-        setTimeout(function() {
-            tooltip.style.opacity = 0; 
-        }, 2500);
+      tooltip.style.display = "block";
+      tooltip.style.opacity = 1;
 
-        setTimeout(function() {
-            tooltip.style.display = 'none';
-        }, 3000);
-    }, function(err) {
-        console.error('Could not copy text: ', err);
-    });
+      setTimeout(function () {
+        tooltip.style.opacity = 0;
+      }, 2500);
+
+      setTimeout(function () {
+        tooltip.style.display = "none";
+      }, 3000);
+    },
+    function (err) {
+      console.error("Could not copy text: ", err);
+    }
+  );
 });
-
-const carouselText = [
-    {text: "4GVN", color: "purple"},
-  ]
-  
-  $( document ).ready(async function() {
-    carousel(carouselText, "#feature-text")
-  });
-  
-  async function typeSentence(sentence, eleRef, delay = 100) {
-    const letters = sentence.split("");
-    let i = 0;
-    while(i < letters.length) {
-      await waitForMs(delay);
-      $(eleRef).append(letters[i]);
-      i++
+class TypeWriter {
+  constructor(txtElement, words, wait = 3000) {
+    this.txtElement = txtElement;
+    this.words = words;
+    this.txt = '';
+    this.wordIndex = 0;
+    this.wait = parseInt(wait, 10);
+    this.type();
+    this.isDeleting = false;
+  }
+  type() {
+    const current = this.wordIndex % this.words.length;
+    const fullTxt = this.words[current];
+    if(this.isDeleting) {
+      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = fullTxt.substring(0, this.txt.length + 1);
     }
-    return;
-  }
-  
-  async function deleteSentence(eleRef) {
-    const sentence = $(eleRef).html();
-    const letters = sentence.split("");
-    let i = 0;
-    while(letters.length > 0) {
-      await waitForMs(100);
-      letters.pop();
-      $(eleRef).html(letters.join(""));
+    this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+    let typeSpeed = 300;
+    if(this.isDeleting) {
+      typeSpeed /= 2;
     }
+    if(!this.isDeleting && this.txt === fullTxt) {
+      typeSpeed = this.wait;
+      this.isDeleting = true;
+    } else if(this.isDeleting && this.txt === '') {
+      this.isDeleting = false;
+      this.wordIndex++;
+      typeSpeed = 500;
+    }
+    setTimeout(() => this.type(), typeSpeed);
   }
-  
-  async function carousel(carouselList, eleRef) {
-      var i = 0;
-      while(true) {
-        updateFontColor(eleRef, carouselList[i].color)
-        await typeSentence(carouselList[i].text, eleRef);
-        await waitForMs(1500);
-        await deleteSentence(eleRef);
-        await waitForMs(500);
-        i++
-        if(i >= carouselList.length) {i = 0;}
-      }
-  }
-  
-  function updateFontColor(eleRef, color) {
-    $(eleRef).css('color', color);
-  }
-  
-  function waitForMs(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
+}
+document.addEventListener('DOMContentLoaded', init);
+function init() {
+  const txtElement = document.querySelector('.txt-type');
+  const words = JSON.parse(txtElement.getAttribute('data-words'));
+  const wait = txtElement.getAttribute('data-wait');
+  new TypeWriter(txtElement, words, wait);
+}
